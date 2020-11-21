@@ -1,14 +1,17 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
 var config = {
-  apiKey: "AIzaSyAVDySds-81u-te8I2N-1JFXDBkq5VbX-Y",
-  authDomain: "pzpn-lottery.firebaseapp.com",
-  databaseURL: "https://pzpn-lottery.firebaseio.com",
-  projectId: "pzpn-lottery",
-  storageBucket: "pzpn-lottery.appspot.com",
-  messagingSenderId: "4394152772"
+  apiKey: "AIzaSyDxA8J5Xl3Ct4M8M6ObC7OgEJAfYTkEbhw",
+  authDomain: "parameters-d975a.firebaseapp.com",
+  databaseURL: "https://parameters-d975a.firebaseio.com",
+  projectId: "parameters-d975a",
+  storageBucket: "parameters-d975a.appspot.com",
+  messagingSenderId: "385179745039",
+  appId: "1:385179745039:web:0c426c97a9f0dc045b1c7a"
 };
 var firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.database();
 
 export default db;
+
+// https://parameters-296314.firebaseio.com/

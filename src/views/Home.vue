@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import db from '@/views/_shared/db.js';
-var notesGlobalRef = db.ref('notesGlobalRef');
+import db from "@/views/_shared/db.js";
+var notesGlobalRef = db.ref("notesGlobalRef");
 
 export default {
   name: "home",
@@ -76,24 +76,21 @@ export default {
 
   mounted() {
     let notesFormStorage = JSON.parse(localStorage.getItem("tzeentch_notes"));
-    !!notesFormStorage ? (this.notesLocal = notesFormStorage) : null;
+    notesFormStorage ? (this.notesLocal = notesFormStorage) : null;
   },
 
   computed: {
     intelligentGlobalNotes() {
-      let filtered = this.notesGlobal.filter(note => { // this.notesGlobal comes form firebase
-        return (
-          note.title.toLowerCase().includes(this.search.toLowerCase())
-        );
+      let filtered = this.notesGlobal.filter(note => {
+        // this.notesGlobal comes form firebase
+        return note.title.toLowerCase().includes(this.search.toLowerCase());
       });
       return filtered;
     },
 
     intelligentLocalNotes() {
       let filtered = this.notesLocal.filter(note => {
-        return (
-          note.title.toLowerCase().includes(this.search.toLowerCase())
-        );
+        return note.title.toLowerCase().includes(this.search.toLowerCase());
       });
       return filtered;
     }
@@ -106,18 +103,20 @@ export default {
       this.newNoteVisible = true;
     },
 
-    saveNewNote(e) {
+    saveNewNote() {
       // based on this.typeVisible context
-      if (!!this.newNote.title) {
-
+      if (this.newNote.title) {
         // global
-        if(this.typeVisible == 'global') {
-          notesGlobalRef.push({ ...this.newNote, type: 'global' });
+        if (this.typeVisible == "global") {
+          notesGlobalRef.push({ ...this.newNote, type: "global" });
 
-        // local
+          // local
         } else {
-          this.notesLocal.unshift({ ...this.newNote, type: 'local' });
-          localStorage.setItem("tzeentch_notes", JSON.stringify(this.notesLocal)); //updates localStorage
+          this.notesLocal.unshift({ ...this.newNote, type: "local" });
+          localStorage.setItem(
+            "tzeentch_notes",
+            JSON.stringify(this.notesLocal)
+          ); //updates localStorage
         }
 
         this.newNoteVisible = false;
@@ -127,16 +126,19 @@ export default {
     deleteNote(i) {
       // based on this.typeVisible context
 
-      if(confirm('Delete it?')) {
+      if (confirm("Delete it?")) {
         // global
-        if(this.typeVisible == 'global') {
+        if (this.typeVisible == "global") {
           let item = this.notesGlobal[i];
-          notesGlobalRef.child(item['.key']).remove();
+          notesGlobalRef.child(item[".key"]).remove();
 
-        // local
+          // local
         } else {
           this.notesLocal.splice(i, 1);
-          localStorage.setItem("tzeentch_notes", JSON.stringify(this.notesLocal));
+          localStorage.setItem(
+            "tzeentch_notes",
+            JSON.stringify(this.notesLocal)
+          );
         }
       }
     },
@@ -149,8 +151,8 @@ export default {
       this.typeVisible = type;
     },
 
-    grantAaccess(e) {
-      if (this.password == "umgak") {
+    grantAaccess() {
+      if (this.password == "cycki") {
         this.accessGranted = true;
         localStorage.setItem("tzeentch_access_token", true);
       }
@@ -158,7 +160,7 @@ export default {
 
     checkAccessToken() {
       let accessToken = localStorage.getItem("tzeentch_access_token");
-      !!accessToken ? (this.accessGranted = true) : null;
+      accessToken ? (this.accessGranted = true) : null;
     },
 
     setAccessToken() {
